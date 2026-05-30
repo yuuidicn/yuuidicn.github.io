@@ -1,0 +1,69 @@
+name: 自动部署
+
+on:
+  push:
+    branches:
+      - main 
+
+  release:
+    types:
+      - published
+
+  workflow_dispatch:
+
+env:
+  TZ: Asia/Shanghai
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 检查分支
+      uses: actions/checkout@v3
+      with:
+        ref: main
+
+    - name: 缓存项目 npm 包
+      id: cache-node-modules
+      uses: actions/cache@v3
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-nodeModules-${{ hashFiles('package-lock.json') }}-${{ hashFiles('package.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nodeModules-
+
+    - name: 安装 Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: "20.x"
+
+    - name: 安装 Hexo
+      run: |
+        npm install hexo-cli --global
+
+    - name: 安装依赖
+      if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      run: |
+        npm install
+
+    - name: 清理文件树
+      run: |
+        npm run clean
+
+    - name: 生成静态文件并压缩
+      run: |
+        npm run build
+
+    - name: Create CNAME
+      run: |
+        echo 'blog.2o.ink' > public/CNAME
+
+    - name: 部署
+      run: |
+        cd ./public
+        git init
+        git config user.name "${{ github.actor }}"
+        git config user.email "${{ github.actor }}@users.noreply.github.com"
+        git add .
+        git commit -m "${{ github.event.head_commit.message }}··[$(date +"%Z %Y-%m-%d %A %H:%M:%S")]"
+        git push --force --quiet "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" master:page

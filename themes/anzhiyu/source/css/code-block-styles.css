@@ -1,0 +1,246 @@
+/**
+ * Hexo 代码块美化样式（AnZhiYu 主题优化版）
+ * 使用方法：
+ * 1. 将此文件复制到 Hexo 主题根目录的 source/css/ 下
+ * 2. 在主题的 _config.yml 中引入此 CSS
+ */
+
+/* ==================== 代码块基础样式 ==================== */
+
+/* 代码块容器 */
+figure.highlight,
+pre,
+code {
+    font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* 代码块外层容器 */
+figure.highlight {
+    margin: 1.5em 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    background: #1e1e1e;
+}
+
+/* 代码块顶部栏（仿 Mac 窗口） */
+figure.highlight::before {
+    content: '';
+    display: block;
+    height: 32px;
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    border-bottom: 1px solid #3d3d3d;
+    position: relative;
+}
+
+/* Mac 窗口按钮（左上角三个圆点） */
+figure.highlight::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 12px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ff5f56;
+    box-shadow: 
+        20px 0 0 #ffbd2e,
+        40px 0 0 #27c93f;
+}
+
+/* 代码内容区域 */
+figure.highlight table {
+    margin: 0 !important;
+    background: #1e1e1e;
+}
+
+figure.highlight pre {
+    margin: 0 !important;
+    padding: 1em 1.5em !important;
+    background: #1e1e1e !important;
+    overflow-x: auto;
+}
+
+/* 行号 */
+figure.highlight .gutter {
+    background: #2d2d2d;
+    padding: 1em 0.8em !important;
+    border-right: 1px solid #3d3d3d;
+}
+
+figure.highlight .gutter pre {
+    background: transparent !important;
+    color: #858585;
+    text-align: right;
+}
+
+/* 代码内容 */
+figure.highlight .code pre {
+    background: transparent !important;
+    padding: 0 !important;
+}
+
+/* ==================== 语法高亮配色（VS Code Dark 风格） ==================== */
+
+/* 注释 */
+figure.highlight .comment,
+figure.highlight .quote {
+    color: #6a9955;
+    font-style: italic;
+}
+
+/* 关键字 */
+figure.highlight .keyword,
+figure.highlight .selector-tag,
+figure.highlight .literal,
+figure.highlight .strong,
+figure.highlight .name {
+    color: #569cd6;
+    font-weight: bold;
+}
+
+/* 变量和属性 */
+figure.highlight .variable,
+figure.highlight .template-variable,
+figure.highlight .code,
+figure.highlight .string,
+figure.highlight .title,
+figure.highlight .section,
+figure.highlight .selector-id {
+    color: #9cdcfe;
+}
+
+/* 字符串 */
+figure.highlight .string,
+figure.highlight .regexp,
+figure.highlight .selector-attr,
+figure.highlight .selector-pseudo,
+figure.highlight .link {
+    color: #ce9178;
+}
+
+/* 数字 */
+figure.highlight .number,
+figure.highlight .built_in,
+figure.highlight .builtin-name,
+figure.highlight .literal,
+figure.highlight .type {
+    color: #b5cea8;
+}
+
+/* 函数 */
+figure.highlight .function .title,
+figure.highlight .function .params {
+    color: #dcdcaa;
+}
+
+/* 操作符 */
+figure.highlight .operator,
+figure.highlight .punctuation {
+    color: #d4d4d4;
+}
+
+/* 属性名 */
+figure.highlight .attribute,
+figure.highlight .tag {
+    color: #92c5ff;
+}
+
+/* 删除线 */
+figure.highlight .deletion {
+    color: #f44747;
+    text-decoration: line-through;
+}
+
+/* 添加内容 */
+figure.highlight .addition {
+    color: #7ee787;
+}
+
+/* 高亮行 */
+figure.highlight .line {
+    display: block;
+    padding: 0 0.5em;
+}
+
+figure.highlight .line:hover {
+    background: #2a2d2e;
+}
+
+/* ==================== 行内代码样式 ==================== */
+
+p code,
+li code,
+td code,
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+    background: #f0f0f1;
+    color: #c7254e;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+    border: 1px solid #e0e0e0;
+}
+
+/* ==================== 代码块滚动条美化 ==================== */
+
+figure.highlight pre::-webkit-scrollbar {
+    height: 8px;
+}
+
+figure.highlight pre::-webkit-scrollbar-track {
+    background: #1e1e1e;
+    border-radius: 4px;
+}
+
+figure.highlight pre::-webkit-scrollbar-thumb {
+    background: #4a4a4a;
+    border-radius: 4px;
+}
+
+figure.highlight pre::-webkit-scrollbar-thumb:hover {
+    background: #5a5a5a;
+}
+
+/* ==================== 响应式优化 ==================== */
+
+@media (max-width: 768px) {
+    figure.highlight {
+        margin: 1em -1em;
+        border-radius: 0;
+    }
+    
+    figure.highlight pre {
+        padding: 1em !important;
+        font-size: 13px;
+    }
+    
+    figure.highlight::after {
+        top: 6px;
+        left: 8px;
+        width: 10px;
+        height: 10px;
+        box-shadow: 
+            16px 0 0 #ffbd2e,
+            32px 0 0 #27c93f;
+    }
+}
+
+/* ==================== 暗色主题适配 ==================== */
+
+@media (prefers-color-scheme: dark) {
+    p code,
+    li code,
+    td code {
+        background: #2d2d2d;
+        color: #f08080;
+        border-color: #4a4a4a;
+    }
+}

@@ -1,0 +1,33 @@
+/* Hexo 主题：彩色标签丸子样式（放到 themes/<your-theme>/source/css/_custom.css） */
+.tag-pill, .hexo-tags .tag-pill, .post-tags a {
+  display: inline-block;
+  margin: 4px 8px 4px 0;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(16,24,40,0.08);
+  transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+}
+.tag-pill:hover, .hexo-tags .tag-pill:hover, .post-tags a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(16,24,40,0.12);
+}
+
+/* fallback 背景用于未被 JS 着色的场景 */
+.hexo-tags .tag-pill, .tag-pill { background: linear-gradient(135deg,#667eea,#9f7aea); color: #fff; }
+
+/* 支持浅色边框样式 */
+.tag-pill[data-outline="true"] {
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: none;
+  color: #111;
+}
+
+/* 小屏幕微调 */
+@media (max-width: 480px) {
+  .tag-pill { padding: 4px 10px; font-size: 0.9rem; }
+}
